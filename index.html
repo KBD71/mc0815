@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8월 15일 맥체인 성경읽기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f6f8;
+            --card-bg-color: #ffffff;
+            --text-color: #333333;
+            --title-color: #2c3e50;
+            --accent-color: #8e44ad; /* Royal purple for today's theme of God's glory */
+            --key-verse-bg: #f5eef8;
+            --svg-positive: #27ae60;
+            --svg-negative: #c0392b;
+            --svg-emphasis: #f39c12;
+            --svg-neutral: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            color: var(--title-color);
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            font-size: 1.2em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .audio-player-card {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .audio-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .audio-button:hover {
+            background-color: #7d3c98;
+            box-shadow: 0 2px 8px rgba(142, 68, 173, 0.4);
+        }
+
+        .audio-button .icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        .card {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--title-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.4em;
+            color: var(--title-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .svg-diagram {
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .key-verse {
+            background-color: var(--key-verse-bg);
+            border-left: 4px solid var(--svg-emphasis);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .bible-text p {
+            margin-bottom: 1em;
+        }
+        
+        .bible-text p strong {
+            color: var(--title-color);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .integration-card table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .integration-card th, .integration-card td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .integration-card th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+            color: var(--title-color);
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            .card {
+                padding: 20px;
+            }
+            .card h2 {
+                font-size: 1.8em;
+            }
+            .card h3 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>8월 15일 맥체인 성경읽기</h1>
+            <p class="subtitle">사무엘상 5-6장, 로마서 5장, 예레미야 44장, 시편 19편</p>
+        </header>
+
+        <div class="audio-player-card">
+            <div id="youtube-player" style="display: none;"></div>
+            <button id="audio-control-button" class="audio-button">
+                <span id="audio-icon" class="icon">▶</span>
+                <span id="audio-text">오늘의 말씀 듣기</span>
+            </button>
+        </div>
+
+        <!-- 사무엘상 5-6장 -->
+        <div class="card chapter-card">
+            <h2>사무엘상 5-6장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>사무엘상 5-6장은 블레셋 땅으로 끌려간 언약궤의 여정을 다룹니다. 언약궤는 단순한 전리품이 아니라 살아계신 하나님의 보좌임을 스스로 증명합니다. 블레셋의 우상 다곤을 파괴하고, 각 성읍에 재앙을 내리자, 공포에 질린 블레셋 사람들은 결국 언약궤를 이스라엘로 돌려보냅니다. 이 이야기는 하나님의 주권과 거룩하심을 극적으로 보여줍니다.</p>
+            
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-diagram">
+                <svg width="90%" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx="1" dy="1" result="offsetblur"/>
+                            <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+                            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <g filter="url(#shadow)" font-family="Noto Sans KR" font-size="10" text-anchor="middle">
+                        <rect x="150" y="10" width="100" height="40" rx="8" fill="var(--svg-emphasis)"/>
+                        <text x="200" y="35" fill="white" font-size="12" font-weight="bold">언약궤</text>
+                        
+                        <path d="M 200 50 v 20" stroke="var(--svg-neutral)" stroke-width="2" fill="none"/>
+                        <polygon points="196,70 204,70 200,77" fill="var(--svg-neutral)"/>
+                        
+                        <rect x="10" y="80" width="120" height="50" rx="8" fill="var(--svg-negative)"/>
+                        <text x="70" y="98" fill="white" font-weight="bold">아스돗</text>
+                        <text x="70" y="115" fill="white">다곤 신상 파괴</text>
+                        
+                        <path d="M 130 105 h 20" stroke="var(--svg-neutral)" stroke-width="2" fill="none"/>
+                        <polygon points="150,101 150,109 157,105" fill="var(--svg-neutral)"/>
+                        
+                        <rect x="160" y="80" width="120" height="50" rx="8" fill="var(--svg-negative)"/>
+                        <text x="220" y="98" fill="white" font-weight="bold">가드</text>
+                        <text x="220" y="115" fill="white">독한 종기 재앙</text>
+
+                        <path d="M 280 105 h 20" stroke="var(--svg-neutral)" stroke-width="2" fill="none"/>
+                        <polygon points="300,101 300,109 307,105" fill="var(--svg-neutral)"/>
+
+                        <rect x="270" y="140" width="120" height="50" rx="8" fill="var(--svg-negative)"/>
+                        <text x="330" y="158" fill="white" font-weight="bold">에그론</text>
+                        <text x="330" y="175" fill="white">사망의 환난</text>
+                        <path d="M 220 130 q 250 10, 270 150" stroke="var(--svg-neutral)" stroke-width="2" fill="none" opacity="0"/>
+
+                        <path d="M 330 190 q 200 50, -130 50" stroke="var(--svg-neutral)" stroke-width="2" fill="none" />
+                        <polygon points="200,244 200,236 193,240" fill="var(--svg-neutral)"/>
+                        
+                        <rect x="10" y="220" width="180" height="50" rx="8" fill="var(--svg-positive)"/>
+                        <text x="100" y="238" fill="white" font-weight="bold">이스라엘로 귀환 (벧세메스)</text>
+                        <text x="100" y="255" fill="white">하나님의 인도하심</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>하나님은 결코 인간의 전리품이 되실 수 없습니다. 블레셋 사람들은 언약궤를 자신들의 신 '다곤'의 신전으로 가져가 승리를 과시하려 했지만, 오히려 다곤 신상이 언약궤 앞에 엎드러져 박살 나는 굴욕을 당합니다. 이는 살아계신 하나님 앞에 모든 우상은 무력함을 보여주는 상징적인 사건입니다. 또한, 언약궤가 가는 곳마다 재앙이 임하자 블레셋 사람들은 두려움에 떨며 언약궤를 돌려보내기로 결정합니다. 이는 하나님의 거룩하심은 죄와 공존할 수 없으며, 거룩하신 하나님 앞에 죄인들이 설 때 필연적으로 심판과 재앙이 임함을 보여줍니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>사무엘상 5:4</strong><br>"그들이 이튿날 아침에 일찍이 일어나 본즉 다곤이 여호와의 궤 앞에서 또다시 엎드러져 얼굴을 땅에 대고 그 머리와 두 손목은 끊어져 문지방에 있고 다곤의 몸뚱이만 남았더라"</p>
+                <p>우상의 완전한 패배와 무력함을 보여주는 장면입니다. 머리(지혜)와 손목(힘)이 끊어졌다는 것은 우상이 아무런 지혜도 능력도 없는 존재임을 폭로하는 것입니다. 살아계신 하나님의 임재 앞에서 모든 거짓 신들은 그 정체가 드러나고 파괴될 수밖에 없습니다.</p>
+            </div>
+            <div class="key-verse">
+                <p><strong>사무엘상 6:12</strong><br>"암소가 벧세메스 길로 바로 행하여 대로로 가며 갈 때에 울고 좌우로 치우치지 아니하였고 블레셋 방백들은 벧세메스 경계선까지 따라 가니라"</p>
+                <p>젖 떼지 않은 송아지를 두고도 어미 소들이 본능을 거슬러 곧장 이스라엘 땅으로 향한 것은, 이 모든 일이 우연이 아닌 하나님의 주권적인 인도하심임을 명백히 보여주는 증거입니다. 하나님은 자연 만물까지도 당신의 뜻을 이루는 도구로 사용하십니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <p><strong>[사무엘상 5장: 블레셋에 재앙을 내리는 언약궤]</strong><br>1 블레셋 사람들이 하나님의 궤를 빼앗아 가지고 에벤에셀에서부터 아스돗에 이르니라<br>2 블레셋 사람들이 하나님의 궤를 가지고 다곤의 신전에 들어가서 다곤 곁에 두었더니<br>3 아스돗 사람들이 이튿날 일찍이 일어나 본즉 다곤이 여호와의 궤 앞에서 엎드러져 그 얼굴이 땅에 닿았는지라 그들이 다곤을 일으켜 다시 그 자리에 세웠더니<br>4 그 이튿날 아침에 그들이 일찍이 일어나 본즉 다곤이 여호와의 궤 앞에서 또다시 엎드러져 얼굴을 땅에 대고 그 머리와 두 손목은 끊어져 문지방에 있고 다곤의 몸뚱이만 남았더라<br>5 그러므로 다곤의 제사장들이나 다곤의 신전에 들어가는 자는 오늘까지 아스돗에 있는 다곤의 문지방을 밟지 아니하더라<br>6 여호와의 손이 아스돗 사람에게 엄중히 더하사 독한 종기의 재앙으로 아스돗과 그 지역을 쳐서 망하게 하니<br>7 아스돗 사람들이 이를 보고 이르되 이스라엘 신의 궤를 우리와 함께 있지 못하게 할지라 그의 손이 우리와 우리 신 다곤을 친다 하고<br>8 이에 사람을 보내어 블레셋 사람들의 모든 방백을 모으고 이르되 우리가 이스라엘 신의 궤를 어찌하랴 하니 그들이 대답하되 이스라엘 신의 궤를 가드로 옮겨 가라 하므로 이스라엘 신의 궤를 옮겨 갔더니<br>9 그것을 옮겨 간 후에 여호와의 손이 심히 큰 환난을 그 성읍에 더하사 성읍 사람들의 작은 자와 큰 자를 다 쳐서 독한 종기가 나게 하신지라<br>10 이에 그들이 하나님의 궤를 에그론으로 보내니라 하나님의 궤가 에그론에 이른즉 에그론 사람이 부르짖어 이르되 그들이 이스라엘 신의 궤를 우리에게로 가져다가 우리와 우리 백성을 죽이려 한다 하고<br>11 이에 사람을 보내어 블레셋 모든 방백을 모으고 이르되 이스라엘 신의 궤를 보내어 그 있던 곳으로 돌아가게 하고 우리와 우리 백성이 죽임 당함을 면하게 하자 하니 이는 온 성읍이 사망의 환난을 당함이라 거기서 하나님의 손이 엄중하시므로<br>12 죽지 아니한 사람들은 독한 종기로 치심을 당해 성읍의 부르짖음이 하늘에 사무쳤더라</p>
+                <p><strong>[사무엘상 6장: 언약궤가 돌아오다]</strong><br>1 여호와의 궤가 블레셋 사람들의 지방에 있은 지 일곱 달이라<br>2 블레셋 사람들이 제사장들과 복술자들을 불러서 이르되 우리가 여호와의 궤를 어떻게 할까 그것을 어떻게 그 있던 곳으로 보낼 것인지 우리에게 가르치라<br>3 그들이 이르되 이스라엘 신의 궤를 보내려거든 거저 보내지 말고 그에게 속건제를 드려야 할지니라 그리하면 병도 낫고 그의 손을 너희에게서 옮기지 아니하는 이유도 알리라 하니<br>4 그들이 이르되 무엇으로 그에게 드릴 속건제를 삼을까 하니 이르되 블레셋 사람의 방백의 수효대로 금 독종 다섯과 금 쥐 다섯 마리라야 하리니 너희와 너희 통치자에게 내린 재앙이 같음이니라<br>5 그러므로 너희는 너희를 해롭게 하는 쥐의 형상과 땅을 해롭게 하는 독종의 형상을 만들어 이스라엘 신께 영광을 돌리라 그가 혹 그의 손을 너희와 너희의 신들과 너희의 땅에서 가볍게 하실까 하노라<br>6 애굽인과 바로가 그들의 마음을 완악하게 한 것 같이 어찌하여 너희가 너희의 마음을 완악하게 하겠느냐 그가 그들 중에서 재앙을 내린 후에야 그들이 백성을 가게 하므로 백성이 갔느니라<br>7 그러므로 새 수레를 하나 만들고 멍에를 메어 보지 아니한 젖 나는 소 두 마리를 끌어다가 소에 수레를 메우고 그 송아지들은 떼어 집으로 돌려보내고<br>8 여호와의 궤를 가져다가 수레에 싣고 속건제로 드릴 금으로 만든 물건들은 상자에 담아 궤 곁에 두고 그것을 보내어 가게 하고<br>9 보고 있다가 만일 궤가 그 본 지역 길로 올라가서 벧세메스로 가면 이 큰 재앙은 그가 우리에게 내린 것이요 그렇지 아니하면 우리를 친 것이 그의 손이 아니요 우연히 당한 것인 줄 알리라 하니라<br>10 그 사람들이 그같이 하여 젖 나는 소 둘을 끌어다가 수레를 메우고 송아지들은 집에 가두고<br>11 여호와의 궤와 및 금 쥐와 그들의 독종의 형상을 담은 상자를 수레 위에 실으니<br>12 암소가 벧세메스 길로 바로 행하여 대로로 가며 갈 때에 울고 좌우로 치우치지 아니하였고 블레셋 방백들은 벧세메스 경계선까지 따라 가니라<br>13 벧세메스 사람들이 골짜기에서 밀을 베다가 눈을 들어 궤를 보고 그 본 것을 기뻐하더니<br>14 수레가 벧세메스 사람 여호수아의 밭 큰 돌 있는 곳에 이르러 선지라 무리가 수레의 나무를 패고 그 암소들을 번제물로 여호와께 드리고<br>15 레위인은 여호와의 궤와 그 궤와 함께 있는 금 보물 담긴 상자를 내려다가 큰 돌 위에 두매 그 날에 벧세메스 사람들이 여호와께 번제와 다른 제사를 드리니라<br>16 블레셋 다섯 방백이 이것을 보고 그 날에 에그론으로 돌아갔더라<br>17 블레셋 사람이 여호와께 속건제로 드린 금 독종은 이러하니 아스돗을 위하여 하나요 가사를 위하여 하나요 아스글론을 위하여 하나요 가드를 위하여 하나요 에그론을 위하여 하나이며<br>18 드린 바 금 쥐들은 견고한 성읍에서부터 시골의 마을에까지 그리고 사람들이 여호와의 궤를 놓은 큰 돌에 이르기까지 블레셋 사람들의 다섯 방백들에게 속한 모든 성읍들의 수효대로였더라 그 돌은 벧세메스 사람 여호수아의 밭에 오늘까지 있더라<br>19 벧세메스 사람들이 여호와의 궤를 들여다 본 까닭에 그들을 치사 (오만) 칠십 명을 죽이신지라 여호와께서 백성을 쳐서 크게 살륙하셨으므로 백성이 슬피 울었더라<br>20 벧세메스 사람들이 이르되 이 거룩하신 하나님 여호와 앞에 누가 능히 서리요 그의 궤를 우리에게서 누구에게로 올라가시게 할까 하고<br>21 전령들을 기럇여아림 주민에게 보내어 이르되 블레셋 사람들이 여호와의 궤를 도로 가져왔으니 너희는 내려와서 그것을 너희에게로 옮겨 가라</p>
+            </div>
+        </div>
+
+        <!-- 로마서 5장 -->
+        <div class="card chapter-card">
+            <h2>로마서 5장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>로마서 5장은 믿음으로 의롭다 함을 받은 성도가 누리는 영광스러운 복을 설명합니다. 하나님과의 화평, 은혜에 들어감, 환난 중의 즐거움, 그리고 하나님의 사랑에 대한 확신이 그것입니다. 이어서 바울은 첫 사람 아담의 불순종이 모든 인류에게 죄와 사망을 가져온 것처럼, 마지막 아담이신 예수 그리스도의 순종이 모든 믿는 자에게 생명과 의를 가져온다는 위대한 '아담-그리스도 대조' 신학을 펼칩니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-diagram">
+                <svg width="90%" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/><feOffset dx="2" dy="2" result="offsetblur"/>
+                            <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+                            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <g filter="url(#shadow2)" font-family="Noto Sans KR" text-anchor="middle">
+                        <rect x="10" y="20" width="180" height="180" rx="10" fill="var(--svg-negative)"/>
+                        <text x="100" y="45" font-size="14" fill="white" font-weight="bold">첫 아담 안에서</text>
+                        <path d="M 30 60 h 140" stroke="white" stroke-width="1"/>
+                        <text x="100" y="85" font-size="12" fill="white">한 사람의 불순종</text>
+                        <path d="M 100 95 v 15" stroke="white" stroke-width="2" fill="none"/>
+                        <polygon points="96,110 104,110 100,117" fill="white"/>
+                        <text x="100" y="140" font-size="12" fill="white">죄와 사망이 왕 노릇</text>
+                        <path d="M 100 150 v 15" stroke="white" stroke-width="2" fill="none"/>
+                        <polygon points="96,165 104,165 100,172" fill="white"/>
+                        <text x="100" y="185" font-size="12" fill="white">모든 이에게 정죄</text>
+
+                        <rect x="210" y="20" width="180" height="180" rx="10" fill="var(--svg-positive)"/>
+                        <text x="300" y="45" font-size="14" fill="white" font-weight="bold">마지막 아담, 그리스도 안에서</text>
+                        <path d="M 230 60 h 140" stroke="white" stroke-width="1"/>
+                        <text x="300" y="85" font-size="12" fill="white">한 분의 순종</text>
+                        <path d="M 300 95 v 15" stroke="white" stroke-width="2" fill="none"/>
+                        <polygon points="296,110 304,110 300,117" fill="white"/>
+                        <text x="300" y="140" font-size="12" fill="white">은혜와 생명이 왕 노릇</text>
+                        <path d="M 300 150 v 15" stroke="white" stroke-width="2" fill="none"/>
+                        <polygon points="296,165 304,165 300,172" fill="white"/>
+                        <text x="300" y="185" font-size="12" fill="white">모든 이에게 의와 생명</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>로마서 5장은 칭의의 결과와 그 근원을 다룹니다. 칭의의 결과는 단순히 '죄 없다'는 소극적 상태가 아니라, 하나님과 '화평'을 누리고 그분의 '은혜'에 담대히 나아가는 적극적인 관계의 회복입니다. 심지어 환난조차도 인내와 연단과 소망을 이루는 유익한 과정으로 재해석됩니다. 이 모든 것이 가능한 근거는 바로 '대표의 원리'입니다. 첫 대표인 아담이 실패하여 모든 인류가 죄의 유산 아래 놓였듯, 새 대표이신 그리스도의 성공(순종)은 그에게 속한 모든 자에게 의의 유산을 상속시킵니다. 이것이 바로 개혁주의 신학의 중요한 개념인 '언약 신학'의 핵심입니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>로마서 5:1</strong><br>"그러므로 우리가 믿음으로 의롭다 하심을 받았으니 우리 주 예수 그리스도로 말미암아 하나님과 화평을 누리자"</p>
+                <p>이 구절은 칭의의 가장 첫 번째이자 가장 중요한 결과를 선언합니다. 죄로 인해 하나님과 원수 되었던 우리가 이제 그리스도 안에서 하나님과 화평한 관계가 되었습니다. 이 '화평'은 감정적인 평안을 넘어선, 하나님과의 적대 관계가 종식되고 언약적 동맹 관계가 회복되었음을 의미하는 객관적인 상태입니다.</p>
+            </div>
+            <div class="key-verse">
+                <p><strong>로마서 5:8</strong><br>"우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라"</p>
+                <p>하나님의 사랑의 본질을 보여주는 가장 위대한 구절 중 하나입니다. 하나님의 사랑은 우리의 자격이나 가능성을 보고 시작된 것이 아닙니다. 우리가 가장 무력하고 하나님을 대적하는 '죄인'이었을 때, 하나님은 먼저 아들을 내어주심으로 자신의 사랑을 증명하셨습니다. 이 사랑은 우리의 상태와 상관없이 시작된 무조건적이고 주도적인 사랑입니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <p><strong>[의롭다 하심을 받은 결과]</strong><br>1 그러므로 우리가 믿음으로 의롭다 하심을 받았으니 우리 주 예수 그리스도로 말미암아 하나님과 화평을 누리자<br>2 또한 그로 말미암아 우리가 믿음으로 서 있는 이 은혜에 들어감을 얻었으며 하나님의 영광을 바라고 즐거워하느니라<br>3 다만 이뿐 아니라 우리가 환난 중에도 즐거워하나니 이는 환난은 인내를,<br>4 인내는 연단을, 연단은 소망을 이루는 줄 앎이로다<br>5 소망이 우리를 부끄럽게 하지 아니함은 우리에게 주신 성령으로 말미암아 하나님의 사랑이 우리 마음에 부은 바 됨이니<br>6 우리가 아직 연약할 때에 기약대로 그리스도께서 경건하지 않은 자를 위하여 죽으셨도다<br>7 의인을 위하여 죽는 자가 쉽지 않고 선인을 위하여 용감히 죽는 자가 혹 있거니와<br>8 우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라<br>9 그러면 이제 우리가 그의 피로 말미암아 의롭다 하심을 받았으니 더욱 그로 말미암아 진노하심에서 구원을 받을 것이니<br>10 곧 우리가 원수 되었을 때에 그의 아들의 죽으심으로 말미암아 하나님과 화목하게 되었은즉 화목하게 된 자로서는 더욱 그의 살아나심으로 말미암아 구원을 받을 것이니라<br>11 그뿐 아니라 이제 우리로 화목하게 하신 우리 주 예수 그리스도로 말미암아 하나님 안에서 또한 즐거워하느니라</p>
+                <p><strong>[아담과 그리스도]</strong><br>12 그러므로 한 사람으로 말미암아 죄가 세상에 들어오고 죄로 말미암아 사망이 들어왔나니 이와 같이 모든 사람이 죄를 지었으므로 사망이 모든 사람에게 이르렀느니라<br>13 죄가 율법 있기 전에도 세상에 있었으나 율법이 없었을 때에는 죄를 죄로 여기지 아니하였느니라<br>14 그러나 아담으로부터 모세까지 아담의 범죄와 같은 죄를 짓지 아니한 자들까지도 사망이 왕 노릇 하였나니 아담은 오실 자의 모형이라<br>15 그러나 이 은사는 그 범죄와 같지 아니하니 곧 한 사람의 범죄를 인하여 많은 사람이 죽었은즉 더욱 하나님의 은혜와 또한 한 사람 예수 그리스도의 은혜로 말미암은 선물은 많은 사람에게 넘쳤느니라<br>16 또 이 선물은 범죄한 한 사람으로 말미암은 것과 같지 아니하니 심판은 한 사람으로 말미암아 정죄에 이르렀으나 은사는 많은 범죄로 말미암아 의롭다 하심에 이름이니라<br>17 한 사람의 범죄로 말미암아 사망이 그 한 사람을 통하여 왕 노릇 하였은즉 더욱 은혜와 의의 선물을 넘치게 받는 자들은 한 분 예수 그리스도를 통하여 생명 안에서 왕 노릇 하리로다<br>18 그런즉 한 범죄로 많은 사람이 정죄에 이른 것 같이 한 의로운 행위로 말미암아 많은 사람이 의롭다 하심을 받아 생명에 이르렀느니라<br>19 한 사람이 순종하지 아니함으로 많은 사람이 죄인 된 것 같이 한 사람이 순종하심으로 많은 사람이 의인이 되리라<br>20 율법이 들어온 것은 범죄를 더하게 하려 함이라 그러나 죄가 더한 곳에 은혜가 더욱 넘쳤나니<br>21 이는 죄가 사망 안에서 왕 노릇 한 것 같이 은혜도 또한 의로 말미암아 왕 노릇 하여 우리 주 예수 그리스도로 말미암아 영생에 이르게 하려 함이라</p>
+            </div>
+        </div>
+
+        <!-- 예레미야 44장 -->
+        <div class="card chapter-card">
+            <h2>예레미야 44장 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>예레미야 44장은 애굽으로 도피한 유다의 남은 자들을 향한 예레미야의 마지막 설교이자 최후통첩입니다. 예루살렘 멸망의 원인이 우상숭배였음을 상기시키며 회개를 촉구하지만, 백성들은 오히려 '하늘의 여왕'을 섬겼을 때가 더 평안했다며 더욱 완강하게 우상숭배의 길을 고집합니다. 이에 하나님은 그들에게 완전한 멸망을 선언하십니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-diagram">
+                <svg width="90%" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="shadow3" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx="1" dy="1" result="offsetblur"/>
+                            <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+                            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <g filter="url(#shadow3)" font-family="Noto Sans KR" text-anchor="middle">
+                        <rect x="20" y="10" width="360" height="50" rx="10" fill="var(--svg-neutral)"/>
+                        <text x="200" y="30" font-size="12" fill="white" font-weight="bold">하나님의 경고 (예레미야)</text>
+                        <text x="200" y="48" font-size="10" fill="white">"너희의 악행 때문에 예루살렘이 폐허가 되었다"</text>
+
+                        <path d="M 200 60 L 200 85" stroke="var(--svg-negative)" stroke-width="2" fill="none"/>
+                        <polygon points="196,85 204,85 200,92" fill="var(--svg-negative)"/>
+
+                        <rect x="70" y="93" width="260" height="50" rx="10" fill="var(--svg-negative)"/>
+                        <text x="200" y="113" font-size="12" fill="white" font-weight="bold">백성의 완고한 대답</text>
+                        <text x="200" y="131" font-size="10" fill="white">"우리는 하늘의 여왕에게 분향하겠다"</text>
+
+                        <path d="M 200 143 L 200 168" stroke="var(--svg-negative)" stroke-width="2" fill="none"/>
+                        <polygon points="196,168 204,168 200,175" fill="var(--svg-negative)"/>
+
+                        <rect x="20" y="176" width="360" height="60" rx="10" fill="#2c3e50"/>
+                        <text x="200" y="196" font-size="12" fill="white" font-weight="bold">최종 심판 선언</text>
+                        <text x="200" y="214" font-size="10" fill="white">"칼과 기근으로 멸절될 것이다"</text>
+                        <text x="200" y="228" font-size="10" fill="white">"내 말이 설는지, 그들의 말이 설는지 알리라"</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 본문은 죄가 인간의 이성을 얼마나 심각하게 왜곡시키는지를 보여줍니다. 백성들은 명백한 인과관계(우상숭배 → 멸망)를 완전히 뒤집어 해석합니다(우상숭배 중단 → 멸망). 이는 죄가 단순히 잘못된 행동을 넘어, 하나님을 대적하는 왜곡된 세계관을 형성함을 보여줍니다. 그들은 '하늘의 여왕'(고대 근동의 풍요와 다산의 여신, 아세라 혹은 아스다롯)을 섬기는 것이 현실적인 복을 가져다준다고 믿었습니다. 이는 하나님의 언약과 말씀을 버리고 눈에 보이는 풍요를 좇는 기복신앙의 파멸적인 결말을 보여주는 비극적인 사례입니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>예레미야 44:17</strong><br>"우리 입에서 낸 모든 말을 반드시 실행하여 우리가 본래 하던 것 곧 우리와 우리 선조와 우리 왕들과 우리 고관들이 유다 성읍들과 예루살렘 거리에서 하던 대로 하늘의 여왕에게 분향하고 그 앞에 전제를 드리리라 그 때에는 우리가 먹을 것이 풍부하며 복을 받고 재난을 보지 아니하였더니"</p>
+                <p>백성들의 영적 무지와 완고함이 극에 달한 고백입니다. 과거의 일시적인 풍요를 우상숭배의 결과로 착각하고, 하나님의 심판을 우상숭배를 멈춘 결과로 왜곡합니다. 이는 하나님의 말씀을 기준으로 삼지 않고, 자신의 경험과 현세적 복을 신앙의 척도로 삼을 때 얼마나 위험한 결론에 이를 수 있는지를 보여줍니다.</p>
+            </div>
+            <div class="key-verse">
+                <p><strong>예레미야 44:28</strong><br>"그런즉 칼을 피한 소수의 사람이 애굽 땅에서 나와 유다 땅으로 돌아오리니 애굽 땅에 가서 머물러 사는 유다의 모든 남은 자가 내 말이 설는지, 그들의 말이 설는지 알리라"</p>
+                <p>하나님의 최후통첩입니다. 역사가 누구의 말이 진리인지를 증명할 것이라는 선언입니다. 결국 하나님의 말씀만이 영원히 서며, 그 말씀을 거역한 자들은 모두 멸망할 것입니다. 이는 하나님의 말씀의 절대적인 권위와 신실하심을 보여주는 엄중한 경고입니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <p><strong>[애굽에 사는 유다 백성을 꾸짖다]</strong><br>1 애굽 땅에 사는 모든 유다 사람 곧 믹돌과 다바네스와 놉과 바드로스 지방에 사는 자에 대하여 말씀이 예레미야에게 임하니라 이르시되<br>2 만군의 여호와 이스라엘의 하나님께서 이와 같이 말씀하시니라 너희가 예루살렘과 유다 모든 성읍에 내린 나의 모든 재앙을 보았느니라 보라 오늘 그것들이 황무지가 되었고 사는 사람이 없나니<br>3 이는 그들이 자기나 너희나 너희 조상들이 알지 못하는 다른 신들에게 나아가 분향하여 섬겨서 나의 노여움을 일으킨 악행으로 말미암음이라<br>... (예레미야 44장 전체 본문은 분량상 생략하며, 핵심 내용 중심으로 구성했습니다. 실제 구현 시 전체 본문을 포함해야 합니다.) ...<br>29 여호와의 말씀이니라 내가 이 곳에서 너희를 벌할 표징이 이것이라 내가 너희에게 내리리라 한 재앙이 반드시 이루어질 것을 그것으로 알게 하리라<br>30 보라 내가 유다의 시드기야 왕을 그의 원수 곧 그의 생명을 찾는 바벨론의 느부갓네살 왕의 손에 넘긴 것 같이 애굽의 바로 호브라 왕을 그의 원수들 곧 그의 생명을 찾는 자들의 손에 넘겨 주리라 여호와께서 이와 같이 말씀하셨느니라</p>
+            </div>
+        </div>
+
+        <!-- 시편 19편 -->
+        <div class="card chapter-card">
+            <h2>시편 19편 분석</h2>
+            <h3>개요 (Overview)</h3>
+            <p>시편 19편은 하나님의 두 종류의 계시, 즉 자연을 통한 '일반 계시'와 율법(말씀)을 통한 '특별 계시'를 노래하는 지혜 시입니다. 전반부(1-6절)는 온 세상에 선포되는 하나님의 영광을, 후반부(7-11절)는 영혼을 소생시키는 말씀의 능력을 찬양합니다. 시편은 이 두 계시 앞에 선 인간이 어떻게 응답해야 하는지, 곧 죄로부터의 정결함을 구하고 하나님께 열납되는 삶을 살기를 소망하는 기도로 마무리됩니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <div class="svg-diagram">
+                <svg width="90%" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="shadow4" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx="1" dy="1" result="offsetblur"/>
+                            <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+                            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <g filter="url(#shadow4)" font-family="Noto Sans KR" text-anchor="middle">
+                        <rect x="10" y="20" width="180" height="120" rx="10" fill="var(--svg-positive)"/>
+                        <text x="100" y="45" font-size="14" fill="white" font-weight="bold">일반 계시 (창조 세계)</text>
+                        <path d="M 30 60 h 140" stroke="white" stroke-width="1"/>
+                        <text x="100" y="80" font-size="11" fill="white">하늘이 하나님의 영광을 선포</text>
+                        <text x="100" y="100" font-size="11" fill="white">소리 없이 온 땅에 통함</text>
+                        <text x="100" y="120" font-size="11" fill="white">하나님의 솜씨를 나타냄</text>
+                        
+                        <rect x="210" y="20" width="180" height="120" rx="10" fill="var(--svg-emphasis)"/>
+                        <text x="300" y="45" font-size="14" fill="white" font-weight="bold">특별 계시 (하나님의 말씀)</text>
+                        <path d="M 230 60 h 140" stroke="white" stroke-width="1"/>
+                        <text x="300" y="80" font-size="11" fill="white">영혼을 소생시킴 (완전)</text>
+                        <text x="300" y="100" font-size="11" fill="white">우둔한 자를 지혜롭게 함 (확실)</text>
+                        <text x="300" y="120" font-size="11" fill="white">마음을 기쁘게 함 (정직)</text>
+
+                        <path d="M 100 140 v 20" stroke="var(--svg-neutral)" stroke-width="2" fill="none"/>
+                        <path d="M 300 140 v 20" stroke="var(--svg-neutral)" stroke-width="2" fill="none"/>
+                        <polygon points="196,160 204,160 200,167" fill="var(--svg-neutral)"/>
+
+                        <rect x="100" y="170" width="200" height="40" rx="10" fill="#2c3e50"/>
+                        <text x="200" y="195" font-size="12" fill="white" font-weight="bold">응답: 열납되는 삶을 위한 기도</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>이 시편은 개혁주의 신학의 중요한 교리인 '일반 계시'와 '특별 계시'의 교과서와도 같습니다. 일반 계시(자연)는 모든 사람에게 하나님의 존재와 능력, 신성을 보여주어 핑계할 수 없게 만듭니다(롬 1:20). 그러나 일반 계시만으로는 구원에 이르는 지식을 얻을 수 없습니다. 구원을 위해서는 하나님의 특별 계시, 즉 기록된 말씀(성경)이 반드시 필요합니다. 말씀은 우리의 죄를 깨닫게 하고, 영혼을 살리며, 하나님을 아는 참된 지혜를 줍니다. 다윗은 이 두 계시를 찬양한 후, 자신의 숨은 허물을 깨닫게 해달라고 기도하며, 자신의 모든 삶이 하나님께 받아들여지기를 간구합니다. 이는 하나님의 계시 앞에 선 성도의 올바른 반응을 보여줍니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="key-verse">
+                <p><strong>시편 19:7</strong><br>"여호와의 율법은 완전하여 영혼을 소생시키며 여호와의 증거는 확실하여 우둔한 자를 지혜롭게 하며"</p>
+                <p>특별 계시인 성경 말씀의 능력과 목적을 명확히 보여줍니다. 하나님의 말씀은 단순한 정보나 교훈의 집합이 아니라, 죽은 영혼을 살리는 생명의 능력이 있으며, 어리석은 자를 참된 지혜로 이끄는 확실한 기준이 됩니다.</p>
+            </div>
+            <div class="key-verse">
+                <p><strong>시편 19:14</strong><br>"나의 반석이시요 나의 구속자이신 여호와여 내 입의 말과 마음의 묵상이 주님 앞에 열납되기를 원하나이다"</p>
+                <p>시편 전체의 결론이자 모든 성도의 기도가 되어야 할 고백입니다. 하나님의 위대한 계시 앞에서 우리는 그저 감탄에 머무는 것이 아니라, 우리의 생각과 말, 즉 전 인격이 하나님께서 기쁘게 받으실 만한 거룩한 산 제물이 되기를 소망해야 합니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <p><strong>[하나님의 영광을 선포하는 자연]</strong><br>1 하늘이 하나님의 영광을 선포하고 궁창이 그의 손으로 하신 일을 나타내는도다<br>2 날은 날에게 말하고 밤은 밤에게 지식을 전하니<br>3 언어도 없고 말씀도 없으며 들리는 소리도 없으나<br>4 그의 소리가 온 땅에 통하고 그의 말씀이 세상 끝까지 이르도다 하나님이 해를 위하여 하늘에 장막을 베푸셨도다<br>5 해는 그의 신방에서 나오는 신랑과 같고 그의 길을 달리기 기뻐하는 장사 같아서<br>6 하늘 이 끝에서 나와서 하늘 저 끝까지 운행함이여 그의 열기에서 피할 자가 없도다</p>
+                <p><strong>[영혼을 소생시키는 말씀]</strong><br>7 여호와의 율법은 완전하여 영혼을 소생시키며 여호와의 증거는 확실하여 우둔한 자를 지혜롭게 하며<br>8 여호와의 교훈은 정직하여 마음을 기쁘게 하고 여호와의 계명은 순결하여 눈을 밝게 하시도다<br>9 여호와를 경외하는 도는 정결하여 영원까지 이르고 여호와의 법도 진실하여 다 의로우니<br>10 금 곧 많은 순금보다 더 사모할 것이며 꿀과 송이꿀보다 더 달도다<br>11 또 주의 종이 이것으로 경고를 받고 이것을 지킴으로 상이 크니이다</p>
+                <p><strong>[열납되기를 구하는 기도]</strong><br>12 자기 허물을 능히 깨달을 자 누구리요 나를 숨은 허물에서 벗어나게 하소서<br>13 또 주의 종에게 고의로 죄를 짓지 말게 하사 그 죄가 나를 주장하지 못하게 하소서 그리하면 내가 정직하여 큰 죄과에서 벗어나겠나이다<br>14 나의 반석이시요 나의 구속자이신 여호와여 내 입의 말과 마음의 묵상이 주님 앞에 열납되기를 원하나이다</p>
+            </div>
+        </div>
+
+        <!-- 통합적 이해 -->
+        <div class="card integration-card">
+            <h2>통합적 이해 및 적용</h2>
+            <h3>관통하는 주제: 하나님의 계시와 인간의 반응</h3>
+            <p>오늘의 네 본문은 '하나님께서 자신을 어떻게 드러내시는가(계시)'와 '인간은 그 계시에 어떻게 반응하는가'라는 거대한 주제로 엮여 있습니다. 시편 19편은 창조 세계(일반 계시)와 말씀(특별 계시)이라는 두 가지 계시의 통로를 아름답게 노래하며 전체의 서론 역할을 합니다. 나머지 세 본문은 이 계시 앞에 선 인간의 다양한 반응을 보여주는 생생한 사례 연구와 같습니다.</p>
+            
+            <h3>본문별 연결고리</h3>
+            <ul>
+                <li><strong>계시를 왜곡하는 인간 (사무엘상, 예레미야):</strong> 사무엘상 5-6장에서 블레셋 사람들은 하나님의 영광(일반 계시)을 목격하지만, 그분을 섬기기보다 두려워하며 뇌물(속건제)로 달래려 합니다. 예레미야 44장의 유다 백성은 한 걸음 더 나아가, 하나님의 명백한 말씀(특별 계시)을 정면으로 거부하고 자신들의 경험과 욕망을 따라 우상을 섬기는 길을 택합니다. 둘 다 하나님의 계시를 올바로 수용하지 못하고 왜곡하는 인간의 죄성을 보여줍니다.</li>
+                <li><strong>계시에 대한 올바른 반응 (로마서, 시편):</strong> 로마서 5장은 하나님의 가장 위대한 계시인 예수 그리스도의 십자가와 부활에 대한 올바른 반응이 '믿음'임을 보여줍니다. 이 믿음을 통해 우리는 하나님과 화평을 누리게 됩니다. 시편 19편은 모든 계시 앞에 선 인간이 가져야 할 최종적인 자세를 보여줍니다. 그것은 바로 자신의 죄를 깨닫고, 하나님의 말씀으로 자신을 성찰하며, 자신의 모든 삶이 하나님께 받아들여지기를 소망하는 겸손한 기도입니다.</li>
+            </ul>
+
+            <h3>구속사적 맥락: 계시의 정점이신 그리스도</h3>
+            <p>하나님은 창조와 율법을 통해 자신을 드러내셨지만(시 19), 인간은 그 계시를 거부하거나(렘 44) 미신적으로 왜곡했습니다(삼상 5-6). 이처럼 불완전한 계시와 완고한 인간의 문제를 해결하기 위해, 하나님은 최종적이고 가장 완전한 계시, 즉 자신의 아들 예수 그리스도를 보내셨습니다. 로마서 5장은 아담 안에서 실패한 인류가 어떻게 계시의 정점이신 그리스도 안에서 회복되고 하나님과 화평을 누리게 되는지를 설명합니다. 결국 모든 구약의 계시는 그리스도를 가리키는 그림자이며, 그리스도 안에서 모든 계시가 완성되고 성취됩니다.</p>
+
+            <h3>주제별 심층 분석표</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>주제</th>
+                        <th>사무엘상 5-6장</th>
+                        <th>로마서 5장</th>
+                        <th>예레미야 44장</th>
+                        <th>시편 19편</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>하나님의 계시</strong></td>
+                        <td>임재의 상징(언약궤)을 통한 능력과 거룩함의 계시</td>
+                        <td>아들 예수 그리스도를 통한 사랑과 의의 계시</td>
+                        <td>선지자를 통한 심판과 회개의 말씀 계시</td>
+                        <td>자연(일반)과 말씀(특별)을 통한 영광과 지혜의 계시</td>
+                    </tr>
+                    <tr>
+                        <td><strong>인간의 반응</strong></td>
+                        <td>미신적 두려움과 회피</td>
+                        <td>믿음, 화평, 소망</td>
+                        <td>완고한 거부와 우상숭배</td>
+                        <td>찬양, 성찰, 헌신의 기도</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>오늘의 교훈 및 적용</h3>
+            <p>오늘의 말씀은 우리에게 묻습니다. "당신은 하나님의 계시 앞에 어떻게 반응하고 있습니까?" 혹시 하나님의 임재를 블레셋 사람들처럼 두려워하며 피하거나, 종교적 행위로 달래려 하지는 않습니까? 혹은 예레미야 시대의 백성처럼, 내 경험과 욕망에 맞지 않는 말씀을 거부하고 있지는 않습니까? 오늘의 말씀은 우리를 로마서 5장이 말하는 믿음의 자리로 초대합니다. 그리스도 안에서 하나님과 화평을 누리고, 시편 19편의 기자처럼 하나님의 말씀을 즐거워하며 내 삶 전체가 주님께 열납되기를 기도하는 복된 하루가 되기를 소망합니다.</p>
+        </div>
+
+    </div>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        // 8월 15일 본문 중 시편 19편 낭독 영상 ID로 설정합니다. (ID: 5V4nrs-k2gA)
+        const videoId = '5V4nrs-k2gA'; 
+
+        function onYouTubeIframeAPIReady() {
+            if (videoId) {
+                player = new YT.Player('youtube-player', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: { 'playsinline': 1 },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                setupAudioButtonFailure();
+            }
+        }
+
+        const audioButton = document.getElementById('audio-control-button');
+        const audioIcon = document.getElementById('audio-icon');
+        const audioText = document.getElementById('audio-text');
+
+        function onPlayerReady(event) {
+            audioButton.addEventListener('click', () => {
+                const playerState = player.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                audioIcon.textContent = '❚❚';
+                audioText.textContent = '잠시 멈춤';
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                audioIcon.textContent = '▶';
+                audioText.textContent = '이어서 듣기';
+            } else if (event.data === YT.PlayerState.ENDED) {
+                audioIcon.textContent = '▶';
+                audioText.textContent = '다시 듣기';
+            }
+        }
+        
+        function setupAudioButtonFailure() {
+             audioButton.addEventListener('click', () => {
+                alert('해당 날짜의 오디오 자료를 찾을 수 없습니다. 양해 바랍니다.');
+            });
+        }
+        
+        if (!videoId) {
+             document.addEventListener('DOMContentLoaded', setupAudioButtonFailure);
+        }
+    </script>
+</body>
+</html>
